@@ -15,12 +15,15 @@ export function Navbar() {
           </div>
           <span className="text-xl font-bold text-gray-900 tracking-tight">QuickHire</span>
         </Link>
-        <div className="hidden md:flex items-center gap-6 font-medium text-gray-600 text-[15px]">
+        <div className="hidden md:flex items-center gap-8 font-medium text-gray-600 text-[15px]">
           <Link href="/jobs" className="hover:text-primary transition-colors">
             Find Jobs
           </Link>
-          <Link href="/companies" className="hover:text-primary transition-colors">
-            Browse Companies
+          <Link href="/people" className="hover:text-primary transition-colors">
+            People
+          </Link>
+          <Link href="/resume" className="hover:text-primary transition-colors">
+            Resume Builder
           </Link>
         </div>
       </div>

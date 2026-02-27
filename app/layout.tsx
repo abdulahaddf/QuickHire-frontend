@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const pjs = Plus_Jakarta_Sans({
   variable: "--font-pjs",
@@ -19,8 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${pjs.variable} antialiased selection:bg-primary selection:text-white`}>
-        {children}
+      <body className={`${pjs.variable} antialiased selection:bg-blue-600 selection:text-white flex min-h-screen flex-col bg-[#FAFBFF] overflow-x-hidden`}>
+        <Navbar />
+        <div className="flex-1 w-full">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

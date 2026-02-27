@@ -1,11 +1,19 @@
-import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/home/HeroSection";
+import { CategorySection } from "@/components/home/CategorySection";
+import { CompanyLogos } from "@/components/home/CompanyLogos";
+import { StartPostingSection } from "@/components/home/StartPostingSection";
+import { FeaturedJobs } from "@/components/home/FeaturedJobs";
+import { LatestJobs } from "@/components/home/LatestJobs";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center overflow-x-hidden bg-[#FAFBFF]">
-      <Navbar />
+    <div className="flex-1 w-full bg-[#FAFBFF]">
       <HeroSection />
-    </main>
+      <CompanyLogos />
+      <CategorySection />
+      <StartPostingSection />
+      <FeaturedJobs />
+      <LatestJobs />
+    </div>
   );
 }
