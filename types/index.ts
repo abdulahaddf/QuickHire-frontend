@@ -1,15 +1,12 @@
 export interface Job {
-  id: string;
+  id: number;
   title: string;
   company: string;
+  logoUrl: string;
   location: string;
-  type: string;
-  salary?: string;
-  description: string;
-  requirements: string[];
-  responsibilities: string[];
-  postedAt: string;
   category: string;
+  description: string;
+  createdAt: string;
 }
 
 export interface Application {

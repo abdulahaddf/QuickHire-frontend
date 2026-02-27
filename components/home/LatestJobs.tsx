@@ -2,18 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-const latestJobs = [
-  { id: 1, title: 'Social Media Assistant', company: 'Nomad', location: 'Paris, France', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'N', logoColor: 'text-green-500 bg-green-50' },
-  { id: 2, title: 'Social Media Assistant', company: 'Netlify', location: 'Paris, France', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'N', logoColor: 'text-teal-500 bg-teal-50' },
-  { id: 3, title: 'Brand Designer', company: 'Dropbox', location: 'San Francisco, US', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'D', logoColor: 'text-blue-500 bg-blue-50' },
-  { id: 4, title: 'Brand Designer', company: 'Maze', location: 'San Francisco, US', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'M', logoColor: 'text-indigo-500 bg-indigo-50' },
-  { id: 5, title: 'Interactive Developer', company: 'Terraform', location: 'Hamburg, Germany', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'T', logoColor: 'text-cyan-500 bg-cyan-50' },
-  { id: 6, title: 'Interactive Developer', company: 'Udacity', location: 'Hamburg, Germany', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'U', logoColor: 'text-blue-600 bg-blue-100' },
-  { id: 7, title: 'HR Manager', company: 'Packer', location: 'Lucerne, Switzerland', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'P', logoColor: 'text-red-500 bg-red-50' },
-  { id: 8, title: 'HR Manager', company: 'Webflow', location: 'Lucerne, Switzerland', type: 'Full Time', tags: ['Marketing', 'Design'], logo: 'W', logoColor: 'text-blue-700 bg-blue-50' },
-];
+import { Job } from '@/types';
 
-export function LatestJobs() {
+export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
+  const displayJobs = jobs.slice(0, 8);
+
   return (
     <section className="bg-[#FAFBFF] py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
@@ -28,10 +21,14 @@ export function LatestJobs() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {latestJobs.map((job) => (
+          {displayJobs.map((job) => (
             <Link key={job.id} href={`/jobs/${job.id}`} className="flex items-center p-6 bg-white border border-gray-100 hover:border-blue-500 hover:shadow-md transition-all">
-              <div className={`w-16 h-16 flex-shrink-0 flex items-center justify-center font-bold text-2xl mr-6 ${job.logoColor}`}>
-                {job.logo}
+              <div className="w-16 h-16 relative flex-shrink-0 flex items-center justify-center rounded-sm overflow-hidden mr-6 bg-gray-50 border border-gray-100">
+                {job.logoUrl ? (
+                  <Image src={job.logoUrl} alt={job.company} fill className="object-contain p-2" />
+                ) : (
+                  <span className="font-bold text-2xl text-gray-900">{job.company.charAt(0)}</span>
+                )}
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-gray-900 mb-1 hover:text-blue-600 transition-colors">
@@ -40,18 +37,16 @@ export function LatestJobs() {
                 <p className="text-gray-500 text-sm font-medium mb-3">{job.company} • {job.location}</p>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-green-600 px-3 py-1 bg-green-50 border border-green-100 text-xs font-semibold rounded-full">
-                    {job.type}
+                    Full Time
                   </span>
                   <div className="w-[1px] h-6 bg-gray-200 mx-2"></div>
-                  {job.tags.map(tag => (
-                    <span key={tag} className={`text-xs font-semibold px-3 py-1 rounded-full border ${
-                      tag === 'Marketing' ? 'text-yellow-600 border-yellow-200' :
-                      tag === 'Design' ? 'text-blue-600 border-blue-200' :
+                  <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${
+                      job.category === 'Marketing' ? 'text-yellow-600 border-yellow-200' :
+                      job.category === 'Design' ? 'text-blue-600 border-blue-200' :
                       'text-gray-600 border-gray-200'
                     }`}>
-                      {tag}
-                    </span>
-                  ))}
+                      {job.category}
+                  </span>
                 </div>
               </div>
             </Link>

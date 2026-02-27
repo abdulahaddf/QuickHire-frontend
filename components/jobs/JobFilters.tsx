@@ -1,54 +1,38 @@
 'use client';
 
 interface JobFiltersProps {
-  onFilterChange: (filters: { type: string; category: string }) => void;
+  onCategoryChange: (category: string) => void;
+  onLocationChange: (location: string) => void;
+  categories: string[];
+  locations: string[];
 }
 
-export function JobFilters({ onFilterChange }: JobFiltersProps) {
+export function JobFilters({ onCategoryChange, onLocationChange, categories, locations }: JobFiltersProps) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">Filters</h3>
-      
-      <div className="space-y-6">
-        <div>
-          <h4 className="mb-3 font-medium text-gray-700">Job Type</h4>
-          <div className="space-y-2 text-sm text-gray-600">
-            {['Full-time', 'Part-time', 'Contract', 'Freelance'].map((type) => (
-              <label key={type} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  onChange={(e) => {
-                    // In a real app, this would be more complex to handle multiple selections
-                    if (e.target.checked) onFilterChange({ type, category: '' });
-                  }}
-                />
-                {type}
-              </label>
-            ))}
-          </div>
-        </div>
+    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      <select
+        onChange={(e) => onCategoryChange(e.target.value)}
+        className="px-4 py-3 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+      >
+        <option value="">All Categories</option>
+        {categories.map((cat) => (
+          <option key={cat} value={cat}>
+            {cat}
+          </option>
+        ))}
+      </select>
 
-        <div className="h-px bg-gray-200" />
-
-        <div>
-          <h4 className="mb-3 font-medium text-gray-700">Categories</h4>
-          <div className="space-y-2 text-sm text-gray-600">
-            {['Engineering', 'Design', 'Marketing', 'Sales', 'Product'].map((category) => (
-              <label key={category} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  onChange={(e) => {
-                    if (e.target.checked) onFilterChange({ type: '', category });
-                  }}
-                />
-                {category}
-              </label>
-            ))}
-          </div>
-        </div>
-      </div>
+      <select
+        onChange={(e) => onLocationChange(e.target.value)}
+        className="px-4 py-3 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+      >
+        <option value="">All Locations</option>
+        {locations.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

@@ -2,18 +2,25 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-const categories = [
-  { name: 'Design', icon: '/Category/Icon-1.svg', count: '235', href: '/jobs?category=Design', isHighlighted: false },
-  { name: 'Sales', icon: '/Category/Icon-2.svg', count: '415', href: '/jobs?category=Sales', isHighlighted: false },
-  { name: 'Marketing', icon: '/Category/Icon-3.svg', count: '140', href: '/jobs?category=Marketing', isHighlighted: true },
-  { name: 'Finance', icon: '/Category/Icon-4.svg', count: '245', href: '/jobs?category=Finance', isHighlighted: false },
-  { name: 'Technology', icon: '/Category/Icon-5.svg', count: '436', href: '/jobs?category=Technology', isHighlighted: false },
-  { name: 'Engineering', icon: '/Category/Icon-6.svg', count: '542', href: '/jobs?category=Engineering', isHighlighted: false },
-  { name: 'Business', icon: '/Category/Icon-7.svg', count: '211', href: '/jobs?category=Business', isHighlighted: false },
-  { name: 'Human Resource', icon: '/Category/Icon.svg', count: '346', href: '/jobs?category=Human+Resource', isHighlighted: false },
+import { Job } from '@/types';
+
+const defaultCategories = [
+  { name: 'Design', icon: '/Category/Icon-1.svg', href: '/jobs?category=Design', isHighlighted: false },
+  { name: 'Sales', icon: '/Category/Icon-2.svg', href: '/jobs?category=Sales', isHighlighted: false },
+  { name: 'Marketing', icon: '/Category/Icon-3.svg', href: '/jobs?category=Marketing', isHighlighted: true },
+  { name: 'Finance', icon: '/Category/Icon-4.svg', href: '/jobs?category=Finance', isHighlighted: false },
+  { name: 'Technology', icon: '/Category/Icon-5.svg', href: '/jobs?category=Technology', isHighlighted: false },
+  { name: 'Engineering', icon: '/Category/Icon-6.svg', href: '/jobs?category=Engineering', isHighlighted: false },
+  { name: 'Business', icon: '/Category/Icon-7.svg', href: '/jobs?category=Business', isHighlighted: false },
+  { name: 'Human Resource', icon: '/Category/Icon.svg', href: '/jobs?category=Human+Resource', isHighlighted: false },
 ];
 
-export function CategorySection() {
+export function CategorySection({ jobs }: { jobs: Job[] }) {
+  const categories = defaultCategories.map(cat => {
+    const count = jobs.filter(j => j.category === cat.name).length;
+    return { ...cat, count };
+  });
+
   return (
     <section className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">

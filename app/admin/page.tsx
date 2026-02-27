@@ -1,210 +1,178 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { jobService, applicationService } from '@/services/api';
+import { Job } from '@/types';
+import { jobService } from '@/services/api';
+import { Trash2, Plus, Building2, MapPin } from 'lucide-react';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { Badge } from '@/components/ui/Badge';
-import { Job, Application } from '@/types';
-import { PlusCircle, Trash2, Edit } from 'lucide-react';
 
-export default function AdminDashboard() {
+export default function AdminPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [applications, setApplications] = useState<Application[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'jobs' | 'applications'>('jobs');
-  
+  const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const fetchJobs = async () => {
+    try {
+      const res = await jobService.getJobs();
+      setJobs(res.data);
+    } catch (err) {
+      console.error('Failed to fetch jobs', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchJobs();
   }, []);
 
-  const fetchData = async () => {
-    setIsLoading(true);
+  const handleAddJob = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    setSuccess('');
+
+    const formData = new FormData(e.currentTarget);
+    const jobData = {
+      title: formData.get('title'),
+      company: formData.get('company'),
+      logoUrl: formData.get('logoUrl') || '/Company/talkit 1.png',
+      location: formData.get('location'),
+      category: formData.get('category'),
+      description: formData.get('description'),
+    };
+
     try {
-      const [jobsData, appsData] = await Promise.all([
-        jobService.getJobs(),
-        applicationService.getApplications()
-      ]);
-      setJobs(jobsData.data || []);
-      setApplications(appsData || []);
-    } catch (error) {
-      console.error('Failed to fetch admin data:', error);
+      await jobService.createJob(jobData);
+      setSuccess('Job successfully created!');
+      e.currentTarget.reset();
+      fetchJobs();
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to create job');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const handleDeleteJob = async (id: string) => {
+  const handleDeleteJob = async (id: number) => {
     if (!confirm('Are you sure you want to delete this job?')) return;
+    
     try {
-      await jobService.deleteJob(id);
+      await jobService.deleteJob(id.toString());
       setJobs(jobs.filter(j => j.id !== id));
-    } catch (error) {
-      console.error('Failed to delete job:', error);
+    } catch (err) {
+      alert('Failed to delete job');
     }
   };
-
-  const handleStatusChange = async (id: string, status: string) => {
-    try {
-      await applicationService.updateApplicationStatus(id, status);
-      setApplications(applications.map(app => 
-        app.id === id ? { ...app, status: status as any } : app
-      ));
-    } catch (error) {
-      console.error('Failed to update status:', error);
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <LoadingSpinner className="h-10 w-10 text-blue-600" />
-      </div>
-    );
-  }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mb-8 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="mt-2 text-sm text-gray-600">Manage job postings and review applications.</p>
-        </div>
-        <div className="mt-4 sm:ml-4 sm:mt-0">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700"
-            onClick={() => alert('Create job form would open here')}
-          >
-            <PlusCircle className="h-5 w-5" />
-            Post New Job
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-[#FAFBFF] py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Add Job Form */}
+        <div className="lg:col-span-1">
+          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 sticky top-8">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <Plus className="w-5 h-5 mr-2 text-blue-600" /> Add New Job
+            </h2>
+            
+            {error && <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">{error}</div>}
+            {success && <div className="mb-4 p-3 bg-green-50 text-green-600 rounded-md text-sm">{success}</div>}
 
-      <div className="mb-6 flex gap-4 border-b border-gray-200">
-        <button
-          className={`pb-4 px-2 text-sm font-medium transition-colors ${
-            activeTab === 'jobs' 
-              ? 'border-b-2 border-blue-600 text-blue-600' 
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-          onClick={() => setActiveTab('jobs')}
-        >
-          Manage Jobs ({jobs.length})
-        </button>
-        <button
-          className={`pb-4 px-2 text-sm font-medium transition-colors ${
-            activeTab === 'applications' 
-              ? 'border-b-2 border-blue-600 text-blue-600' 
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-          onClick={() => setActiveTab('applications')}
-        >
-          Applications ({applications.length})
-        </button>
-      </div>
+            <form onSubmit={handleAddJob} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                <input required type="text" name="title" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Senior React Developer" />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                <input required type="text" name="company" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Acme Corp" />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Logo URL (Optional)</label>
+                <input type="text" name="logoUrl" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="/Company/talkit 1.png" />
+              </div>
 
-      {activeTab === 'jobs' ? (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Job Title</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Company</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Posted Date</th>
-                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {jobs.map((job) => (
-                <tr key={job.id} className="hover:bg-gray-50">
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{job.title}</div>
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <div className="text-sm text-gray-500">{job.company}</div>
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <Badge variant="secondary">{job.type}</Badge>
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    {new Date(job.postedAt).toLocaleDateString()}
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                    <button className="text-blue-600 hover:text-blue-900 mr-4">
-                      <Edit className="h-4 w-4" />
-                    </button>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <input required type="text" name="location" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Remote, US" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select required name="category" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="">Select Category</option>
+                  <option value="Design">Design</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Sales">Sales</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Business">Business</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Human Resource">Human Resource</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea required name="description" rows={4} className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Job description..."></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-md hover:bg-blue-700 transition flex items-center justify-center"
+              >
+                {isSubmitting ? <LoadingSpinner className="mr-2" /> : 'Post Job'}
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Job List Management */}
+        <div className="lg:col-span-2">
+          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center justify-between">
+              Manage Active Jobs
+              <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full">{jobs.length} Total</span>
+            </h2>
+
+            {loading ? (
+              <div className="flex justify-center py-12"><LoadingSpinner className="w-8 h-8 text-blue-600" /></div>
+            ) : jobs.length === 0 ? (
+              <div className="text-center py-12 text-gray-500">No jobs posted yet.</div>
+            ) : (
+              <div className="space-y-4">
+                {jobs.map(job => (
+                  <div key={job.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-5 border border-gray-100 hover:border-blue-200 rounded-lg group transition-colors">
+                    <div>
+                      <h3 className="font-bold text-gray-900">{job.title}</h3>
+                      <div className="mt-1 flex items-center text-sm text-gray-500 gap-4">
+                        <span className="flex items-center"><Building2 className="w-3.5 h-3.5 mr-1" /> {job.company}</span>
+                        <span className="flex items-center"><MapPin className="w-3.5 h-3.5 mr-1" /> {job.location}</span>
+                        <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs">{job.category}</span>
+                      </div>
+                    </div>
+                    
                     <button 
                       onClick={() => handleDeleteJob(job.id)}
-                      className="text-red-600 hover:text-red-900"
+                      className="mt-4 sm:mt-0 p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors self-start sm:self-auto"
+                      title="Delete Job"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="w-5 h-5" />
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {jobs.length === 0 && (
-            <div className="py-12 text-center text-sm text-gray-500">
-              No jobs posted yet.
-            </div>
-          )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Candidate</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Job Reference</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Applied Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Resume</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {applications.map((app) => (
-                 <tr key={app.id} className="hover:bg-gray-50">
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{app.candidateName}</div>
-                    <div className="text-sm text-gray-500">{app.email}</div>
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    {app.jobId}
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    {new Date(app.appliedAt).toLocaleDateString()}
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <select
-                      value={app.status}
-                      onChange={(e) => handleStatusChange(app.id, e.target.value)}
-                      className="rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
-                    >
-                      <option value="PENDING">PENDING</option>
-                      <option value="REVIEWING">REVIEWING</option>
-                      <option value="SHORTLISTED">SHORTLISTED</option>
-                      <option value="REJECTED">REJECTED</option>
-                    </select>
-                  </td>
-                   <td className="whitespace-nowrap px-6 py-4 text-sm">
-                     <a href={app.resumeUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-900 underline">
-                       View Resume
-                     </a>
-                   </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {applications.length === 0 && (
-            <div className="py-12 text-center text-sm text-gray-500">
-              No applications received yet.
-            </div>
-          )}
-        </div>
-      )}
+
+      </div>
     </div>
   );
 }
