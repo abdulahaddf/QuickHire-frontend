@@ -29,13 +29,17 @@ export function Navbar() {
       </div>
       
       <div className="flex items-center gap-2 md:gap-4">
-        <Button variant="ghost" className="hidden sm:inline-flex px-4 px-2 text-primary font-bold">
-          Login
-        </Button>
+        <Link href="/login">
+          <Button variant="ghost" className="hidden sm:inline-flex px-4 px-2 text-primary font-bold">
+            Login
+          </Button>
+        </Link>
         <span className="hidden sm:block w-[1px] h-6 bg-gray-200"></span>
-        <Button variant="primary" className="rounded-sm bg-[#4F46E5] hover:bg-[#4338CA] px-6">
-          Sign Up
-        </Button>
+        <Link href="/signup">
+          <Button variant="primary" className="rounded-sm bg-[#4F46E5] hover:bg-[#4338CA] px-6">
+            Sign Up
+          </Button>
+        </Link>
       </div>
     </nav>
   );
