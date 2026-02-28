@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
@@ -21,6 +22,34 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen, closeMenu]);
+
+  // Mobile menu animation variants
+  const menuVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      x: "100%"
+    },
+    visible: {
+      opacity: 1,
+      x: 0
+    },
+    exit: {
+      opacity: 0,
+      x: "100%"
+    }
+  };
+
+  // Hamburger icon animation variants
+  const hamburgerVariants = {
+    closed: {
+      rotate: 0,
+      scale: 1
+    },
+    open: {
+      rotate: 0,
+      scale: 1.1
+    }
+  };
 
   return (
     <>
@@ -58,58 +87,113 @@ export function Navbar() {
       </div>
 
       {/* Mobile: hamburger button */}
-      <button
+      <motion.button
         type="button"
         onClick={() => setMenuOpen((o) => !o)}
-        className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+        className="lg:hidden p-2 text-gray-700"
         aria-expanded={menuOpen}
         aria-label={menuOpen ? "Close menu" : "Open menu"}
+        variants={hamburgerVariants}
+        initial="closed"
+        animate={menuOpen ? "open" : "closed"}
+        transition={{ duration: 0.2 }}
       >
-        {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
+        <motion.div
+          initial={false}
+          animate={{ opacity: menuOpen ? 0 : 1, rotate: menuOpen ? -90 : 0 }}
+          transition={{ duration: 0.15 }}
+          className="absolute"
+        >
+          <Menu className="w-6 h-6" />
+        </motion.div>
+        <motion.div
+          initial={false}
+          animate={{ opacity: menuOpen ? 1 : 0, rotate: menuOpen ? 0 : 90 }}
+          transition={{ duration: 0.15 }}
+          className="absolute"
+        >
+          <X className="w-6 h-6" />
+        </motion.div>
+      </motion.button>
     </nav>
 
     {/* Mobile menu overlay */}
-    {menuOpen && (
-      <div
-        className="fixed inset-0 top-[73px] z-40 lg:hidden bg-white border-t border-gray-100 shadow-lg overflow-y-auto"
-        aria-hidden="false"
-      >
-        <div className="flex flex-col py-6 px-6 gap-1">
-          <Link
-            href="/jobs"
-            className="py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 rounded-md"
-            onClick={closeMenu}
-          >
-            Find Jobs
-          </Link>
-          <Link
-            href="/#"
-            className="py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 rounded-md"
-            onClick={closeMenu}
-          >
-            Browse Companies
-          </Link>
-          <div className="h-px bg-gray-200 my-2" />
-          <Link
-            href="/login"
-            className="py-3 px-4 text-[#4F46E5] font-semibold"
-            onClick={closeMenu}
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className="mx-4 mt-2"
-            onClick={closeMenu}
-          >
-            <Button variant="primary" className="w-full rounded-sm bg-[#4F46E5] hover:bg-[#4338CA] py-3">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
-      </div>
-    )}
+    <AnimatePresence mode="wait">
+      {menuOpen && (
+        <motion.div
+          className="fixed inset-0 top-[73px] z-40 lg:hidden bg-white border-t border-gray-100 shadow-lg"
+          aria-hidden="false"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={menuVariants}
+        >
+          <div className="flex flex-col py-6 px-6 gap-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
+            >
+              <Link
+                href="/jobs"
+                className="block py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 rounded-md"
+                onClick={closeMenu}
+              >
+                Find Jobs
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
+            >
+              <Link
+                href="/#"
+                className="block py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 rounded-md"
+                onClick={closeMenu}
+              >
+                Browse Companies
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.3 }}
+            >
+              <div className="h-px bg-gray-200 my-2" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.3 }}
+            >
+              <Link
+                href="/login"
+                className="block py-3 px-4 text-[#4F46E5] font-semibold"
+                onClick={closeMenu}
+              >
+                Login
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+            >
+              <Link
+                href="/signup"
+                className="mx-4 mt-2 block"
+                onClick={closeMenu}
+              >
+                <Button variant="primary" className="w-full rounded-sm bg-[#4F46E5] hover:bg-[#4338CA] py-3">
+                  Sign Up
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </>
   );
 }

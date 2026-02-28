@@ -19,7 +19,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full pt-12 md:pt-20 lg:pt-24 bg-[#FAFBFF] overflow-hidden">
+    <section className="relative w-full pt-5 md:pt-20 lg:pt-24 bg-[#FAFBFF] overflow-hidden">
        {/* Background Pattern */}
          <div className="absolute -top-3 right-30 w-[55%] h-[165%] z-[1] hidden md:block">
            <Image src="/Header/Pattern.svg" alt="Background Pattern" fill className="object-contain object-right-top" priority />
@@ -28,25 +28,25 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 relative gap-12 lg:gap-0">
           
           {/* Left Content */}
-          <div className="flex min-w-0 flex-col gap-8 relative z-30 pt-4">
-            <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[5rem] font-bold leading-[1.05] text-gray-900 tracking-tight">
+          <div className="flex min-w-0  flex-col gap-8 relative z-30 pt-4">
+            <h1 className="text-[3.8rem] lg:text-[5rem] font-bold leading-[1.05] text-gray-900 tracking-tight">
               Discover <br />
               more than <br />
               <span className="text-[#00A3FF] relative inline-block z-10 w-max">
                 5000+ Jobs
                 {/* SVG Underline */}
-                <div className="absolute top-[90%] left-[-2%] w-[104%] -z-10 flex justify-center pointer-events-none">
+                <div className="absolute top-[90%] left-[-2%] w-[104%] -z-10 flex justify-center pointer-events-none my-4">
                   <Image src="/Header/verticleLine.svg" alt="Underline" width={455} height={40} className="w-full h-auto" />
                 </div>
               </span>
             </h1>
             
-            <p className="text-gray-500 text-lg md:text-xl max-w-lg leading-relaxed font-medium mt-2">
+            <p className="text-gray-500 text-lg md:text-xl max-w-lg leading-relaxed font-medium mt-4">
               Great platform for the job seeker that searching for new career heights and passionate about startups.
             </p>
 
             {/* Search Bar Box */}
-            <form onSubmit={handleSearch} className="w-full lg:w-[950px] h-[100px] bg-white p-3 shadow-[0px_15px_50px_rgba(0,0,0,0.06)] flex flex-col md:flex-row items-stretch md:items-center gap-2 mt-4 border border-gray-100/50 relative z-50 rounded-sm">
+            <form onSubmit={handleSearch} className="w-full lg:w-[950px] lg:h-[100px] bg-white p-3 shadow-[0px_15px_50px_rgba(0,0,0,0.06)] flex flex-col md:flex-row items-stretch md:items-center gap-2 mt-4 border border-gray-100/50 relative z-50 rounded-sm">
               
               <div className="flex min-w-0 items-center gap-3 px-4 flex-1 h-14">
                 <Image src="/Header/Search.svg" alt="Search Icon" width={22} height={22} className="opacity-80" />

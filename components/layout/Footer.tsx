@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="bg-[#1f2937] text-gray-300">
       <div className="mx-auto w-full max-w-11/12 px-4 py-16 sm:px-6 lg:px-20">
-        <div className="flex justify-between gap-12 md:gap-16 justify-content">
+        <div className="md:flex space-y-5 justify-between gap-12 md:gap-16 justify-content">
           
           <div className="md:col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
@@ -52,12 +52,12 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Email Address"
-                className="w-full min-w-0 appearance-none rounded-l-md border border-gray-700 bg-white px-4 py-2 text-base text-gray-300 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                className="w-full min-w-0 appearance-none border border-gray-700 bg-white px-4 py-2 text-base text-gray-300 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                 required
               />
               <button
                 type="submit"
-                className="flex-shrink-0 rounded-r-md border border-transparent bg-[#4F46E5] px-4 py-2 my-2 md:my-0 text-sm font-medium text-white shadow-sm hover:bg-[#4338CA] focus:outline-none focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2 focus:ring-offset-gray-900"
+                className="flex-shrink-0 border border-transparent bg-[#4F46E5] px-4 py-2 my-2 md:my-0 text-sm font-medium text-white shadow-sm hover:bg-[#4338CA] focus:outline-none focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2 focus:ring-offset-gray-900"
               >
                 Subscribe
               </button>

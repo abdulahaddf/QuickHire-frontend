@@ -9,17 +9,17 @@ export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
 
   return (
     <div className="bg-white relative">
-      <section className="py-24 bg-[#FAFBFF] md:[clip-path:polygon(90px_0%,100%_0,100%_100%,0_100%,0_180px)]">
+     <section className="py-12 md:py-24 bg-[#FAFBFF] [clip-path:polygon(0%_5%,35%_0%,100%_0%,100%_100%,0%_100%)] md:[clip-path:polygon(180px_0,100%_0,100%_100%,0_100%,0_80px)]">
    {/* Background Pattern */}
          <div className="absolute top-14 left-40 -translate-x-[-30%] -translate-y-[10%] w-[75%] h-[90%] z-[-1] hidden md:block">
            <Image src="/Pattern2.svg" alt="Background Pattern" fill className="object-contain" priority />
          </div>
       <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20" >
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
-          <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
+          <h2 className="md:text-[2.5rem] text-[2rem] font-bold tracking-tight text-gray-900 leading-none pt-10 md:pt-0">
             Latest <span className="text-[#00A3FF]">jobs open</span>
           </h2>
-          <Link href="/jobs" className="mt-4 sm:mt-0 flex items-center text-[#4F46E5] font-semibold hover:underline">
+          <Link href="/jobs" className="mt-4 sm:mt-0 flex hidden md:flex items-center text-[#4F46E5] font-semibold hover:underline">
             Show all jobs
             <ArrowRight className="ml-2 w-4 h-4" />
           </Link>

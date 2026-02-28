@@ -22,13 +22,14 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
   });
 
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white md:py-20">
       <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="md:text-[2.5rem] text-[2rem] font-bold tracking-tight text-gray-900 leading-none">
             Explore by <span className="text-[#00A3FF]">category</span>
           </h2>
-          <Link href="/jobs" className="mt-4 sm:mt-0 flex items-center text-[#4F46E5] font-semibold hover:underline">
+          {/* Desktop: Show all jobs link in header */}
+          <Link href="/jobs" className="hidden sm:flex items-center text-[#4F46E5] font-semibold hover:underline">
             Show all jobs 
             <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
@@ -73,6 +74,12 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
             );
           })}
         </div>
+
+        {/* Mobile: Show all jobs link below section */}
+        <Link href="/jobs" className="mt-8 flex sm:hidden items-center text-[#4F46E5] font-semibold hover:underline">
+          Show all jobs 
+          <ArrowRight className="ml-2 w-4 h-4" />
+        </Link>
       </div>
     </section>
   );
