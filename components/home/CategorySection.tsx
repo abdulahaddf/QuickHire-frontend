@@ -23,7 +23,7 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
 
   return (
     <section className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto  px-4 sm:px-6 lg:px-36">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
             Explore by <span className="text-[#00A3FF]">category</span>
