@@ -6,13 +6,16 @@ import { StartPostingSection } from "@/components/home/StartPostingSection";
 import { FeaturedJobs } from "@/components/home/FeaturedJobs";
 import { LatestJobs } from "@/components/home/LatestJobs";
 
-export const revalidate = 0; // Disable static rendering to always show fresh jobs
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export default async function Home() {
   let jobs = [];
   try {
-    const res = await jobService.getJobs();
-    jobs = res.data;
+    const res = await fetch(`${API_URL}/jobs`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      jobs = data.data || [];
+    }
   } catch (error) {
     console.error("Failed to fetch jobs for homepage", error);
   }

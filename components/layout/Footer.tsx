@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Facebook, Twitter, Instagram, Linkedin, Dribbble } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 export function Footer() {
   return (
     <footer className="bg-[#1f2937] text-gray-300">
-      <div className="mx-auto max-w-11/12 px-4 py-16 sm:px-6 lg:px-20">
+      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5 md:gap-8">
           
           <div className="md:col-span-2 lg:col-span-2">
@@ -15,12 +15,13 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold text-white tracking-tight">QuickHire</span>
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
+            <p className="text-md text-gray-400 leading-relaxed max-w-xs">
               Great platform for the job seeker that passionate about startups. Find your dream job easier.
             </p>
           </div>
 
-          <div>
+         <div className='flex justify-between md:flex-row'>
+           <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-6">About</h3>
             <ul className="space-y-4 text-sm text-gray-400">
               <li><Link href="#" className="hover:text-white transition-colors">Companies</Link></li>
@@ -40,22 +41,23 @@ export function Footer() {
               <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
             </ul>
           </div>
+         </div>
 
           <div className="md:col-span-4 lg:col-span-1">
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-6">Get job notifications</h3>
             <p className="text-sm text-gray-400 mb-4">
               The latest job news, articles, and resources sent to your inbox weekly.
             </p>
-            <form className="flex max-w-md">
+            <form className="md:flex max-w-lg gap-1  ">
               <input
                 type="email"
                 placeholder="Email Address"
-                className="w-full min-w-0 appearance-none rounded-l-md border border-gray-700 bg-gray-800 px-4 py-2 text-base text-gray-300 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                className="w-full min-w-0 appearance-none rounded-l-md border border-gray-700 bg-white px-4 py-2 text-base text-gray-300 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                 required
               />
               <button
                 type="submit"
-                className="flex-shrink-0 rounded-r-md border border-transparent bg-[#4F46E5] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#4338CA] focus:outline-none focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2 focus:ring-offset-gray-900"
+                className="flex-shrink-0 rounded-r-md border border-transparent bg-[#4F46E5] px-4 py-2 my-2 md:my-0 text-sm font-medium text-white shadow-sm hover:bg-[#4338CA] focus:outline-none focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2 focus:ring-offset-gray-900"
               >
                 Subscribe
               </button>

@@ -23,7 +23,7 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
 
   return (
     <section className="bg-white py-24">
-      <div className="mx-auto  px-4 sm:px-6 lg:px-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="md:text-[2.5rem] text-[2rem] font-bold tracking-tight text-gray-900 leading-none">
             Explore by <span className="text-[#00A3FF]">category</span>
@@ -40,7 +40,7 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
               <Link
                 key={category.name}
                 href={category.href}
-                className="group flex md:flex-col flex-row gap-5  p-8 border border-gray-300 transition-all hover:shadow-lg bg-white border-gray-100/60 hover:border-[#00A3FF] hover:bg-[#4F46E5] hover:text-white hover:shadow-xl hover:scale-102 duration-300 z-10"
+                className="group flex md:flex-col flex-row gap-5 p-8 border border-gray-300 transition-all hover:shadow-lg bg-white border-gray-100/60 hover:border-[#00A3FF] hover:bg-[#4F46E5] hover:text-white hover:shadow-xl hover:scale-[1.02] duration-300 z-10"
               >
               
                  <div className="mb-8">

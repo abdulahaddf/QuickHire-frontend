@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { jobService } from '@/services/api';
 import { Job } from '@/types';
@@ -9,7 +9,7 @@ import { SearchBar } from '@/components/jobs/SearchBar';
 import { JobFilters } from '@/components/jobs/JobFilters';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
-export default function JobsPage() {
+function JobsPageContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category');
   
@@ -84,5 +84,23 @@ export default function JobsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAFBFF] py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
+            <div className="py-20 flex justify-center">
+              <LoadingSpinner className="w-8 h-8 text-blue-600" />
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <JobsPageContent />
+    </Suspense>
   );
 }

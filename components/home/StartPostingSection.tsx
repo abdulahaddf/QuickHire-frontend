@@ -10,7 +10,7 @@ export function StartPostingSection() {
           {/* Blue Polygon Background */}
           <div 
             className="absolute inset-0 bg-[#4F46E5]"
-            style={{ clipPath: 'polygon(12% 0, 100% 0, 100% 86%, 64% 100%, 0 100%, 0 20%)' }}
+            style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 80%, 60% 100%, 0 100%, 0 18%)' }}
           ></div>
           
           {/* Content Wrapper */}
@@ -35,12 +35,12 @@ export function StartPostingSection() {
             </div>
             
             {/* Right Image */}
-            <div className="w-[50%] absolute bottom-0 right-20 h-[350px] md:min-h-[350px]">
+            <div className="relative w-full mt-10 h-[220px] sm:h-[260px] md:mt-0 md:w-[52%] md:absolute md:bottom-0 md:right-10 md:h-[350px]">
               <Image
                 src="/Startposting/Dashboard Company.jpg"
                 alt="Dashboard Preview"
                 fill
-                className="object-left-top"
+                className="object-contain md:object-left-top"
               />
             </div>
             
