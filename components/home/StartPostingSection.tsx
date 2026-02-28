@@ -3,31 +3,47 @@ import Image from 'next/image';
 
 export function StartPostingSection() {
   return (
-    <section className="py-24 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
-        <div className="relative overflow-hidden bg-[#4F46E5] flex flex-col md:flex-row items-center justify-between p-12 md:p-16">
-          <div className="relative z-10 max-w-lg mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-[3.5rem] font-bold text-white leading-[1.1] mb-6 tracking-tight">
-              Start posting<br/>jobs today
-            </h2>
-            <p className="text-blue-100 font-medium mb-10 text-lg">
-              Start posting jobs for only $10.
-            </p>
-            <Link
-              href="/admin"
-              className="inline-flex bg-white text-[#4F46E5] font-bold px-8 py-4 hover:bg-gray-50 transition-colors"
-            >
-              Sign up For free
-            </Link>
-          </div>
+    <section className="py-24 bg-white overflow-hidden">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
+        <div className="relative w-full min-h-[450px] flex items-center">
           
-          <div className="relative w-full md:w-[600px] h-[300px] md:h-[400px] md:absolute md:right-0 md:-bottom-12 md:translate-x-12">
-            <Image
-              src="/Startposting/Dashboard Company.jpg"
-              alt="Dashboard Preview"
-              fill
-              className="object-cover object-left-top shadow-2xl rounded-tl-xl"
-            />
+          {/* Blue Polygon Background */}
+          <div 
+            className="absolute inset-0 bg-[#4F46E5]"
+            style={{ clipPath: 'polygon(12% 0, 100% 0, 100% 86%, 64% 100%, 0 100%, 0 20%)' }}
+          ></div>
+          
+          {/* Content Wrapper */}
+          <div className="relative z-10 w-full flex flex-col md:flex-row justify-between p-8 md:p-16 lg:p-20">
+            
+            {/* Left Content */}
+            <div className="w-full md:w-[45%] flex flex-col justify-center mb-12 md:mb-0">
+              <h2 className="text-5xl lg:text-[4rem] font-bold text-white leading-[1.1] mb-6 tracking-tight">
+                Start posting<br/>jobs today
+              </h2>
+              <p className="text-white text-lg lg:text-xl font-medium mb-10">
+                Start posting jobs for only $10.
+              </p>
+              <div>
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center justify-center bg-white text-[#4F46E5] font-bold text-lg px-8 py-4 hover:bg-gray-50 transition-colors"
+                >
+                  Sign Up For Free
+                </Link>
+              </div>
+            </div>
+            
+            {/* Right Image */}
+            <div className="w-[50%] absolute bottom-0 right-20 h-[350px] md:min-h-[350px]">
+              <Image
+                src="/Startposting/Dashboard Company.jpg"
+                alt="Dashboard Preview"
+                fill
+                className="object-left-top shadow-2xl"
+              />
+            </div>
+            
           </div>
         </div>
       </div>

@@ -5,11 +5,11 @@ import { ArrowRight } from 'lucide-react';
 import { Job } from '@/types';
 
 export function FeaturedJobs({ jobs = [] }: { jobs: Job[] }) {
-  const displayJobs = jobs.slice(0, 4);
+  const displayJobs = jobs.slice(0, 8);
 
   return (
     <section className="bg-white py-24 border-t border-gray-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
             Featured <span className="text-[#00A3FF]">jobs</span>

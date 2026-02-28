@@ -5,13 +5,13 @@ import { Facebook, Twitter, Instagram, Linkedin, Dribbble } from 'lucide-react';
 export function Footer() {
   return (
     <footer className="bg-[#1f2937] text-gray-300">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-20">
+      <div className="mx-auto max-w-11/12 px-4 py-16 sm:px-6 lg:px-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5 md:gap-8">
           
           <div className="md:col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="relative w-8 h-8">
-                <Image src="/logo.svg" alt="QuickHire Logo" fill className="object-contain brightness-0 invert" />
+                <Image src="/logo.svg" alt="QuickHire Logo" fill className="object-contain" />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">QuickHire</span>
             </Link>

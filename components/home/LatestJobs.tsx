@@ -8,14 +8,16 @@ export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
   const displayJobs = jobs.slice(0, 8);
 
   return (
-    <section className="bg-[#FAFBFF] py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
+    <div className="bg-white">
+      <section className="py-24 bg-[#FAFBFF]" style={{ clipPath: 'polygon(90px 0%, 100% 0, 100% 100%, 0 100%, 0 180px)' }}>
+
+      <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20 " >
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
             Latest <span className="text-[#00A3FF]">jobs open</span>
           </h2>
           <Link href="/jobs" className="mt-4 sm:mt-0 flex items-center text-[#4F46E5] font-semibold hover:underline">
-            Show all jobs 
+            Show all jobs
             <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
         </div>
@@ -53,6 +55,8 @@ export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
           ))}
         </div>
       </div>
+   
     </section>
+    </div>
   );
 }
