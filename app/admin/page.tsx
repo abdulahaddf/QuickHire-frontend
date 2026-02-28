@@ -5,6 +5,7 @@ import { Job } from '@/types';
 import { jobService } from '@/services/api';
 import { Trash2, Plus, Building2, MapPin, Users, ExternalLink, Mail, Calendar } from 'lucide-react';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { toast } from 'react-toastify';
 
 interface Application {
   id: number;
@@ -25,9 +26,16 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<'jobs' | 'applications'>('jobs');
+
+  const allCategories = ['Design', 'Engineering', 'Marketing', 'Sales', 'Technology', 'Business', 'Finance', 'Human Resource'];
+
+  const toggleCategory = (cat: string) => {
+    setSelectedCategories(prev =>
+      prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+    );
+  };
 
   const fetchJobs = async () => {
     try {
@@ -55,26 +63,33 @@ export default function AdminPage() {
   const handleAddJob = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
-    setSuccess('');
+
+    if (selectedCategories.length === 0) {
+      toast.error('Please select at least one category');
+      setIsSubmitting(false);
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
+    const logoUrl = (formData.get('logoUrl') as string) || '/Company/talkit 1.png';
+
     const jobData = {
       title: formData.get('title'),
       company: formData.get('company'),
-      logoUrl: formData.get('logoUrl') || '/Company/talkit 1.png',
+      logoUrl,
       location: formData.get('location'),
-      category: formData.get('category'),
+      category: selectedCategories.join(', '),
       description: formData.get('description'),
     };
 
     try {
       await jobService.createJob(jobData);
-      setSuccess('Job successfully created!');
+      toast.success('Job posted successfully! 🎉');
       e.currentTarget.reset();
+      setSelectedCategories([]);
       fetchJobs();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create job');
+      toast.error(err.response?.data?.message || 'Failed to create job');
     } finally {
       setIsSubmitting(false);
     }
@@ -85,8 +100,9 @@ export default function AdminPage() {
     try {
       await jobService.deleteJob(id.toString());
       setJobs(jobs.filter(j => j.id !== id));
+      toast.success('Job deleted successfully');
     } catch {
-      alert('Failed to delete job');
+      toast.error('Failed to delete job');
     }
   };
 
@@ -142,9 +158,6 @@ export default function AdminPage() {
                       <Plus className="w-5 h-5 mr-2 text-blue-600" /> Add New Job
                     </h2>
 
-                    {error && <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm border border-red-100">{error}</div>}
-                    {success && <div className="mb-4 p-3 bg-green-50 text-green-600 rounded-md text-sm border border-green-100">{success}</div>}
-
                     <form onSubmit={handleAddJob} className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
@@ -156,25 +169,30 @@ export default function AdminPage() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Logo URL (Optional)</label>
-                        <input type="text" name="logoUrl" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="/Company/talkit 1.png" />
+                        <input type="url" name="logoUrl" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="https://example.com/logo.png" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                         <input required type="text" name="location" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Remote, US" />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                        <select required name="category" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
-                          <option value="">Select Category</option>
-                          <option value="Design">Design</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Marketing">Marketing</option>
-                          <option value="Sales">Sales</option>
-                          <option value="Technology">Technology</option>
-                          <option value="Business">Business</option>
-                          <option value="Finance">Finance</option>
-                          <option value="Human Resource">Human Resource</option>
-                        </select>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <div className="flex flex-wrap gap-2">
+                          {allCategories.map(cat => (
+                            <button
+                              key={cat}
+                              type="button"
+                              onClick={() => toggleCategory(cat)}
+                              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                                selectedCategories.includes(cat)
+                                  ? 'bg-blue-600 text-white border-blue-600'
+                                  : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+                              }`}
+                            >
+                              {cat}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>

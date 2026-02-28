@@ -25,10 +25,10 @@ export function FeaturedJobs({ jobs = [] }: { jobs: Job[] }) {
             <Link key={job.id} href={`/jobs/${job.id}`} className="group p-6 border border-gray-200 hover:border-blue-500 transition-all bg-white hover:shadow-lg flex flex-col h-full">
               <div className="flex justify-between items-start mb-6">
                 <div className="w-12 h-12 relative bg-gray-50 border border-gray-100 flex items-center justify-center rounded-sm overflow-hidden">
-                  {job.logoUrl ? (
-                    <Image src={job.logoUrl} alt={job.company} fill className="object-contain p-2" />
+                  {job?.logoUrl ? (
+                    <Image src={job?.logoUrl} alt={job?.company} fill className="object-contain p-2" />
                   ) : (
-                    <span className="font-bold text-xl text-gray-900">{job.company.charAt(0)}</span>
+                    <span className="font-bold text-xl text-gray-900">{job?.company.charAt(0)}</span>
                   )}
                 </div>
                 <span className="text-blue-600 px-3 py-1 bg-blue-50 border border-blue-100 text-xs font-semibold">

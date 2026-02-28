@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Briefcase, Mail, Lock, AlertCircle, ArrowRight } from 'lucide-react';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { toast } from 'react-toastify';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -22,9 +23,11 @@ export default function LoginPage() {
     setTimeout(() => {
       // Hardcoded admin auth as requested
       if (email === 'admin@quickhire.com' && password === 'admin123') {
+        toast.success('Welcome back, Admin! 👋');
         router.push('/admin');
       } else {
         setError('Invalid admin credentials. Please try again.');
+        toast.error('Invalid credentials. Please try again.');
         setLoading(false);
       }
     }, 800);

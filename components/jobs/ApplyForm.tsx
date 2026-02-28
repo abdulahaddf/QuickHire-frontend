@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 interface ApplyFormProps {
   jobId: string;
@@ -44,9 +45,12 @@ export function ApplyForm({ jobId, onSuccess, onCancel }: ApplyFormProps) {
       }
 
       setSubmitted(true);
+      toast.success('Application submitted successfully! 🎉');
       if (onSuccess) onSuccess();
     } catch (err: any) {
-      setError(err.message || 'Failed to submit application');
+      const msg = err.message || 'Failed to submit application';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }

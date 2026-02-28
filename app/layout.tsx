@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 
 const pjs = Plus_Jakarta_Sans({
   variable: "--font-pjs",
@@ -27,6 +29,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <ToastProvider />
       </body>
     </html>
   );
