@@ -25,7 +25,7 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
     <section className="bg-white py-24">
       <div className="mx-auto  px-4 sm:px-6 lg:px-36">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
-          <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
+          <h2 className="md:text-[2.5rem] text-[2rem] font-bold tracking-tight text-gray-900 leading-none">
             Explore by <span className="text-[#00A3FF]">category</span>
           </h2>
           <Link href="/jobs" className="mt-4 sm:mt-0 flex items-center text-[#4F46E5] font-semibold hover:underline">
@@ -40,9 +40,10 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
               <Link
                 key={category.name}
                 href={category.href}
-                className="group flex flex-col p-8 border border-gray-300 transition-all hover:shadow-lg bg-white border-gray-100/60 hover:border-[#00A3FF] hover:bg-[#4F46E5] hover:text-white hover:shadow-xl hover:scale-102 duration-300 z-10"
+                className="group flex md:flex-col flex-row gap-5  p-8 border border-gray-300 transition-all hover:shadow-lg bg-white border-gray-100/60 hover:border-[#00A3FF] hover:bg-[#4F46E5] hover:text-white hover:shadow-xl hover:scale-102 duration-300 z-10"
               >
-                <div className="mb-8">
+              
+                 <div className="mb-8">
                   <Image 
                     src={category.icon} 
                     alt={category.name} 
@@ -55,13 +56,19 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
                     } group-hover:brightness-0 group-hover:invert`}
                   />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-white transition-all duration-300">
+             
+               <div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-white transition-all duration-300">
                   {category.name}
                 </h3>
+            
+              
                 <div className="mt-auto flex items-center gap-2 text-[15px] font-medium text-gray-500 group-hover:text-blue-100 transition-all duration-300">
                   {category.count} jobs available
-                  <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                  <ArrowRight className="w-4 h-4 ml-auto  transition-all duration-300" />
                 </div>
+               </div>
+
               </Link>
             );
           })}

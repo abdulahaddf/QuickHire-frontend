@@ -19,11 +19,8 @@ export function Navbar() {
           <Link href="/jobs" className="hover:text-primary transition-colors">
             Find Jobs
           </Link>
-          <Link href="/people" className="hover:text-primary transition-colors">
-            People
-          </Link>
-          <Link href="/resume" className="hover:text-primary transition-colors">
-            Resume Builder
+          <Link href="/#" className="hover:text-primary transition-colors">
+            Browse Companies
           </Link>
         </div>
       </div>
