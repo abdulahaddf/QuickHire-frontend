@@ -25,7 +25,7 @@ export function Navbar() {
   return (
     <>
     <nav className="flex items-center justify-between py-6 px-6 lg:px-20 mx-auto w-full z-50 relative bg-[#FAFBFF]">
-      <div className="flex items-center gap-12">
+      <div className="flex items-center gap-12 md:px-20">
         <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
           <div className="relative w-8 h-8">
             <Image src="/logo.svg" alt="QuickHire Logo" fill className="object-contain" />

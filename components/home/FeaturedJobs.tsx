@@ -25,31 +25,24 @@ export function FeaturedJobs({ jobs = [] }: { jobs: Job[] }) {
           </Link>
         </div>
 
-        {/* Horizontal scroll: single row, no continuous/infinite scroll */}
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-20">
+        {/* Mobile: Horizontal scroll | Desktop: Grid */}
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-0">
           <div
-            className="overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth px-4 sm:px-6 lg:px-20 pb-2"
+            className="overflow-x-auto md:overflow-visible overscroll-x-contain pb-4 md:pb-0 px-4 sm:px-6 lg:px-0"
             style={{
               scrollSnapType: "x mandatory",
-              scrollbarGutter: "stable",
               WebkitOverflowScrolling: "touch",
             }}
-            role="list"
           >
-            <div
-              className="flex flex-nowrap gap-6 w-max min-w-full"
-              style={{ paddingRight: "max(1rem, env(safe-area-inset-right))" }}
-            >
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 w-max md:w-full">
               {displayJobs.map((job) => (
                 <Link
                   key={job.id}
                   href={`/jobs/${job.id}`}
-                  className="group flex flex-col flex-shrink-0 w-[300px] min-w-[300px] p-6 border border-gray-200 hover:border-blue-500 transition-all bg-white hover:shadow-lg rounded-sm snap-start"
+                  className="group flex flex-col flex-shrink-0 w-[280px] md:w-full p-6 border border-gray-200 hover:border-blue-500 transition-all bg-white hover:shadow-lg rounded-sm snap-start"
                   style={{
                     scrollSnapAlign: "start",
-                    scrollSnapStop: "always",
                   }}
-                  role="listitem"
                 >
                   <div className="flex justify-between items-start mb-6">
                     <div className="w-12 h-12 relative bg-gray-50 border border-gray-100 flex items-center justify-center rounded-sm overflow-hidden">

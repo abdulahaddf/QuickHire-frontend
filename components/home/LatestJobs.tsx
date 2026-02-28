@@ -11,8 +11,8 @@ export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
     <div className="bg-white relative">
       <section className="py-24 bg-[#FAFBFF] md:[clip-path:polygon(90px_0%,100%_0,100%_100%,0_100%,0_180px)]">
    {/* Background Pattern */}
-         <div className="absolute top-14 left-40 -translate-x-[6%] -translate-y-[28%] w-[135%] h-[130%] z-[1] hidden md:block">
-           <Image src="/Header/Pattern.svg" alt="Background Pattern" fill className="object-contain" priority />
+         <div className="absolute top-14 left-40 -translate-x-[-30%] -translate-y-[10%] w-[75%] h-[90%] z-[-1] hidden md:block">
+           <Image src="/Pattern2.svg" alt="Background Pattern" fill className="object-contain" priority />
          </div>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20" >
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">

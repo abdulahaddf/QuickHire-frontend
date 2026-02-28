@@ -20,7 +20,7 @@ export function HeroSection() {
 
   return (
     <section className="relative w-full pt-12 md:pt-24">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 relative gap-12 lg:gap-0">
         {/* Left Content */}
        <div className="flex min-w-0 flex-col gap-10 relative z-30">

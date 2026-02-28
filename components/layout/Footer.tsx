@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="bg-[#1f2937] text-gray-300">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-20">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5 md:gap-8">
+        <div className="flex justify-between gap-12 md:gap-16 justify-content">
           
           <div className="md:col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
@@ -20,7 +20,7 @@ export function Footer() {
             </p>
           </div>
 
-         <div className='flex justify-between md:flex-row'>
+         <div className='flex justify-between md:flex-row gap-16'>
            <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-6">About</h3>
             <ul className="space-y-4 text-sm text-gray-400">
