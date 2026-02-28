@@ -62,6 +62,7 @@ export default function AdminPage() {
 
   const handleAddJob = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget; // Capture form reference
     setIsSubmitting(true);
 
     if (selectedCategories.length === 0) {
@@ -70,7 +71,7 @@ export default function AdminPage() {
       return;
     }
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const logoUrl = (formData.get('logoUrl') as string) || '/Company/talkit 1.png';
 
     const jobData = {
@@ -83,11 +84,11 @@ export default function AdminPage() {
     };
 
     try {
-      await jobService.createJob(jobData);
+      const res = await jobService.createJob(jobData);
+      setJobs([res.data, ...jobs]);
       toast.success('Job posted successfully! 🎉');
-      e.currentTarget.reset();
+      form.reset(); // Use captured form reference
       setSelectedCategories([]);
-      fetchJobs();
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Failed to create job');
     } finally {
