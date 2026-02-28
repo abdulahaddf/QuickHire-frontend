@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
   return (
-    <nav className="flex items-center justify-between py-6 px-6 lg:px-20 max-w-7xl mx-auto w-full">
+    <nav className="flex items-center justify-between py-6 px-6 lg:px-20 mx-auto w-full z-10">
       <div className="flex items-center gap-12">
         <Link href="/" className="flex items-center gap-2">
           {/* We assume logo.svg is in public folder */}

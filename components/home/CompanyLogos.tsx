@@ -10,7 +10,7 @@ const companies = [
 
 export function CompanyLogos() {
   return (
-    <section className="bg-white py-12 border-b border-gray-50">
+    <section className="bg-white py-12 border-b border-gray-50 relative z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 text-center md:text-left">
         <p className="text-sm font-medium text-gray-400 mb-8 max-w-7xl mx-auto">
           Companies we helped grow
