@@ -11,13 +11,21 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 function JobsPageContent() {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category');
-  
+  const initialCategory = searchParams.get("category") ?? "";
+  const initialSearch = searchParams.get("search") ?? "";
+  const initialLocation = searchParams.get("location") ?? "";
+
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState(initialCategory || '');
-  const [locationFilter, setLocationFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [categoryFilter, setCategoryFilter] = useState(initialCategory);
+  const [locationFilter, setLocationFilter] = useState(initialLocation);
+
+  useEffect(() => {
+    setSearchQuery(initialSearch);
+    setCategoryFilter(initialCategory);
+    setLocationFilter(initialLocation);
+  }, [initialSearch, initialCategory, initialLocation]);
 
   useEffect(() => {
     async function loadJobs() {
