@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export function StartPostingSection() {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-10 bg-white overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
         <div className="relative w-full min-h-[450px] flex items-center">
           
@@ -40,7 +40,7 @@ export function StartPostingSection() {
                 src="/Startposting/Dashboard Company.jpg"
                 alt="Dashboard Preview"
                 fill
-                className="object-left-top shadow-2xl"
+                className="object-left-top"
               />
             </div>
             

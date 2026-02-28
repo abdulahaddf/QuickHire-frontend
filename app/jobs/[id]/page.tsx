@@ -2,19 +2,26 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowLeft, Briefcase, MapPin, Building2, Calendar } from 'lucide-react';
 import Link from 'next/link';
-import { jobService } from '@/services/api';
 import { ApplyForm } from '@/components/jobs/ApplyForm';
 
-export const revalidate = 0; // Disable static rendering for fresh jobs
+export const revalidate = 0;
 
-export default async function JobDetailPage({ params }: { params: { id: string } }) {
-  let job;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
+async function getJob(id: string) {
   try {
-    const res = await jobService.getJobById(params.id);
-    job = res.data;
-  } catch (error) {
-    console.error("Failed to fetch job details", error);
+    const res = await fetch(`${API_URL}/jobs/${id}`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.data;
+  } catch {
+    return null;
   }
+}
+
+export default async function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const job = await getJob(id);
 
   if (!job) {
     notFound();
