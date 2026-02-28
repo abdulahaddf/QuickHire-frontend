@@ -41,7 +41,7 @@ export function HeroSection() {
         </p>
 
         {/* Search Bar Box */}
-        <form onSubmit={handleSearch} className="w-full md:w-[750px] bg-white p-3 shadow-[0px_8px_30px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-stretch md:items-center gap-4 mt-2 border border-gray-100/50 relative z-50">
+        <form onSubmit={handleSearch} className="w-full md:w-[950px] md:h-[100px] bg-white p-3 shadow-[0px_8px_30px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-stretch md:items-center gap-4 mt-2 border border-gray-100/50 relative z-50">
           
           <div className="flex min-w-0 items-center gap-3 px-4 flex-1">
             <Image src="/Header/Search.svg" alt="Search Icon" width={20} height={20} className="opacity-70" />
@@ -95,7 +95,7 @@ export function HeroSection() {
            <Image 
              src="/Header/Pic.png" 
              alt="Professional" 
-             width={490}
+             width={480}
              height={600}
              className="relative z-10 object-contain"
              priority
@@ -103,19 +103,19 @@ export function HeroSection() {
 
         </div>
       </div>
-           {/* White Corner Bottom Right */}
-          <div 
-            className="hidden lg:block absolute bottom-0 right-0 z-20" 
-            style={{
-              width: 0,
-              height: 0,
-              borderLeft: '500px solid transparent',
-              borderBottom: '265px solid white',
-            }}
-          ></div>
         </div>
+              {/* White Corner Bottom Right */}
+              <div 
+                className="hidden lg:block absolute bottom-0 right-0 z-20" 
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: '500px solid transparent',
+                  borderBottom: '265px solid white',
+                }}
+              ></div>
     </section>
-  );
+  );  
 }
 
 

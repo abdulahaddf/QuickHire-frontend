@@ -4,7 +4,7 @@ import Image from 'next/image';
 export function StartPostingSection() {
   return (
     <section className="py-10 bg-white overflow-hidden">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
+      <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20">
         <div className="relative w-full min-h-[450px] flex items-center">
           
           {/* Blue Polygon Background */}

@@ -14,7 +14,7 @@ export function LatestJobs({ jobs = [] }: { jobs: Job[] }) {
          <div className="absolute top-14 left-40 -translate-x-[-30%] -translate-y-[10%] w-[75%] h-[90%] z-[-1] hidden md:block">
            <Image src="/Pattern2.svg" alt="Background Pattern" fill className="object-contain" priority />
          </div>
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20" >
+      <div className="mx-auto max-w-11/12 px-4 sm:px-6 lg:px-20" >
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-12">
           <h2 className="text-[2.5rem] font-bold tracking-tight text-gray-900 leading-none">
             Latest <span className="text-[#00A3FF]">jobs open</span>

@@ -5,7 +5,7 @@ import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 export function Footer() {
   return (
     <footer className="bg-[#1f2937] text-gray-300">
-      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-20">
+      <div className="mx-auto w-full max-w-11/12 px-4 py-16 sm:px-6 lg:px-20">
         <div className="flex justify-between gap-12 md:gap-16 justify-content">
           
           <div className="md:col-span-2 lg:col-span-2">
@@ -20,7 +20,7 @@ export function Footer() {
             </p>
           </div>
 
-         <div className='flex justify-between md:flex-row gap-16'>
+         <div className='flex justify-between md:flex-row gap-16 max-w-11/12'>
            <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-6">About</h3>
             <ul className="space-y-4 text-sm text-gray-400">
@@ -65,7 +65,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-16 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-400">
             2023 © QuickHire. All rights reserved.
           </p>
