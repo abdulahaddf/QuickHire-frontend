@@ -5,14 +5,14 @@ import { ArrowRight } from 'lucide-react';
 import { Job } from '@/types';
 
 const defaultCategories = [
-  { name: 'Design', icon: '/Category/Icon-1.svg', href: '/jobs?category=Design', isHighlighted: false },
-  { name: 'Sales', icon: '/Category/Icon-2.svg', href: '/jobs?category=Sales', isHighlighted: false },
-  { name: 'Marketing', icon: '/Category/Icon-3.svg', href: '/jobs?category=Marketing', isHighlighted: true },
-  { name: 'Finance', icon: '/Category/Icon-4.svg', href: '/jobs?category=Finance', isHighlighted: false },
-  { name: 'Technology', icon: '/Category/Icon-5.svg', href: '/jobs?category=Technology', isHighlighted: false },
-  { name: 'Engineering', icon: '/Category/Icon-6.svg', href: '/jobs?category=Engineering', isHighlighted: false },
-  { name: 'Business', icon: '/Category/Icon-7.svg', href: '/jobs?category=Business', isHighlighted: false },
-  { name: 'Human Resource', icon: '/Category/Icon.svg', href: '/jobs?category=Human+Resource', isHighlighted: false },
+  { name: 'Design', icon: '/Category/Icon.svg', href: '/jobs?category=Design' },
+  { name: 'Sales', icon: '/Category/Icon-1.svg', href: '/jobs?category=Sales' },
+  { name: 'Marketing', icon: '/Category/Icon-2.svg', href: '/jobs?category=Marketing' },
+  { name: 'Finance', icon: '/Category/Icon-3.svg', href: '/jobs?category=Finance' },
+  { name: 'Technology', icon: '/Category/Icon-4.svg', href: '/jobs?category=Technology' },
+  { name: 'Engineering', icon: '/Category/Icon-5.svg', href: '/jobs?category=Engineering' },
+  { name: 'Business', icon: '/Category/Icon-6.svg', href: '/jobs?category=Business' },
+  { name: 'Human Resource', icon: '/Category/Icon-7.svg', href: '/jobs?category=Human+Resource' },
 ];
 
 export function CategorySection({ jobs }: { jobs: Job[] }) {
@@ -40,11 +40,7 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
               <Link
                 key={category.name}
                 href={category.href}
-                className={`group flex flex-col p-8 border rounded-sm transition-all hover:shadow-lg ${
-                  category.isHighlighted 
-                    ? 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-xl scale-105 z-10' 
-                    : 'bg-white border-gray-100/60 hover:border-[#00A3FF]'
-                }`}
+                className="group flex flex-col p-8 border border-gray-300 transition-all hover:shadow-lg bg-white border-gray-100/60 hover:border-[#00A3FF] hover:bg-[#4F46E5] hover:text-white hover:shadow-xl hover:scale-102 duration-300 z-10"
               >
                 <div className="mb-8">
                   <Image 
@@ -52,17 +48,19 @@ export function CategorySection({ jobs }: { jobs: Job[] }) {
                     alt={category.name} 
                     width={40} 
                     height={40}
-                    className={category.isHighlighted ? 'brightness-0 invert' : ''}
+                    className={`object-contain transition-all duration-300 ${
+                      category.icon.includes('Icon-2.svg') || category.icon.includes('Icon')
+                        ? 'brightness-0 [filter:invert(48%)_sepia(79%)_saturate(2476%)_hue-rotate(180deg)_brightness(100%)_contrast(109%)]'
+                        : ''
+                    } group-hover:brightness-0 group-hover:invert`}
                   />
                 </div>
-                <h3 className={`text-xl font-bold mb-3 ${category.isHighlighted ? 'text-white' : 'text-gray-900'}`}>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-white transition-all duration-300">
                   {category.name}
                 </h3>
-                <div className={`mt-auto flex items-center gap-2 text-[15px] font-medium ${
-                  category.isHighlighted ? 'text-blue-100' : 'text-gray-500'
-                }`}>
+                <div className="mt-auto flex items-center gap-2 text-[15px] font-medium text-gray-500 group-hover:text-blue-100 transition-all duration-300">
                   {category.count} jobs available
-                  <ArrowRight className={`w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${category.isHighlighted ? 'text-white' : 'text-gray-900'}`} />
+                  <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300" />
                 </div>
               </Link>
             );
