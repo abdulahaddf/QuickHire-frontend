@@ -58,7 +58,7 @@ export function HeroSection() {
         </div>
 
         {/* Popular Tags */}
-        <div className="flex items-center gap-2 text-xl mt-2 text-gray-500 font-medium">
+        <div className="flex items-center gap-2 text-xl my-2 text-gray-500 font-medium">
           <span>Popular : </span>
           <span className="text-gray-700">UI Designer, UX Researcher, Android, Admin</span>
         </div>
